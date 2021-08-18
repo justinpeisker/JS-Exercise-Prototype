@@ -100,17 +100,24 @@ function Car(model, milesPerGallon) {
 }
 
 Car.prototype.fill = function(gallons){
-  this.tank.push(gallons);
+  this.tank = this.tank + gallons;
 }
 Car.prototype.drive = function(distance){
-  this.odometer.push(distance);
-  this.tank.push(distance / milesPerGallon);
+  const drivableMiles = this.tank * this.milesPerGallon;
+  if(distance <= drivableMiles){
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - (distance / this.milePerGallon);
+
+  }else{
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
 }
 
 const prius = new Car('Prius', 40);
-prius.fill(10);
-console.log(prius.model);
-console.log(prius.tank);
+// prius.fill(10);
+console.log('TASK 2', prius.model);
+console.log('TASK 2', prius.tank);
 
 /*
   TASK 3
@@ -131,7 +138,7 @@ Baby.prototype.play = function(){
 
 const newBaby = new Baby('Jack');
 
-console.log(newBaby.name);
+console.log('TASK 3', newBaby.name);
 
 
 /* 
